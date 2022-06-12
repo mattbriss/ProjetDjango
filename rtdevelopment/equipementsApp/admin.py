@@ -1,4 +1,5 @@
 import imp
+from dbus import Interface
 from django.contrib import admin
 
 from .models import Personnel
@@ -12,5 +13,6 @@ admin.site.register(Commutateur)
 admin.site.register(Routeur)
 admin.site.register(Terminale)
 admin.site.register(Vlan)
+admin.site.register(Interface)
 
 # Register your models here.
