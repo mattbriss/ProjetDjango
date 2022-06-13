@@ -1,5 +1,5 @@
 from django.shortcuts import render,get_object_or_404, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from equipementsApp.models import Commutateur, Routeur, Terminale
 from .forms import AddTerminaleForm
 
@@ -16,20 +16,16 @@ def index(request):
 
 def machine_list_view(request) :
         terminales = Terminale.objects.all()
-        context ={'terminales': terminales }
         commutateurs = Commutateur.objects.all()
-        context ={'commutateurs': commutateurs }
         routeurs = Routeur.objects.all()
-        context ={'routeurs': routeurs }
+        context ={'routeurs': routeurs, 'terminales': terminales, 'commutateurs': commutateurs   }
         return render(request, 'computerapp/machine_list.html', context )
 
 def machine_detail_view(request, pk):
         terminales = get_object_or_404(Terminale, id=pk )
-        context ={'terminales': terminales }
         commutateurs =get_object_or_404(Commutateur, id=pk )
-        context ={'commutateurs': commutateurs }
         routeurs = get_object_or_404(Routeur, id=pk )
-        context ={'routeurs': routeurs }
+        context ={'routeurs': routeurs,'terminales': terminales, 'commutateurs': commutateurs }
         return render(request, 'computerapp/machhine_detail.html', context )
 
 
@@ -55,8 +51,8 @@ def machine_add_form(request):
             if form.is_valid():
                     new_machine = Terminale(nom=form.cleaned_data['nom'])
                     new_machine.save()
-                    return redirect('machines')
+                    return HttpResponseRedirect('machines')
     else:
-            form = AddTerminaleForm()
-            context = {'form': form}
-            return render(request,'computerapp/machine_add.html',context)
+        form = AddTerminaleForm()
+        context = {'form': form}
+        return render(request,'computerapp/machine_add.html',context)

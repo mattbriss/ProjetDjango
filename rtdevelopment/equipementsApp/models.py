@@ -51,7 +51,7 @@ class Commutateur(models.Model):
     mask=models.CharField(max_length =16)
     addresse_pass=models.CharField(max_length =16)
     secteur=models.CharField(max_length=32, choices= SECTEUR,)
-    vlan=models.ForeignKey(Vlan)
+    #vlan=models.ForeignKey(nom, on_delete=models.CASCADE)
         
     
     maj=models.CharField(max_length =16)
